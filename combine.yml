@@ -1,0 +1,23 @@
+- name: Combine CSV files
+  hosts: ansible-lab
+  gather_facts: false
+  become: yes
+
+  vars:
+    src_dir: "/tmp/test"
+    dest_file: "/tmp/test/final_file.csv"
+
+  tasks:
+    - name: Read CSV files
+      set_fact:
+        csv_contents: "{{ lookup('csvfile', item) }}"
+      with_fileglob: "{{ src_dir }}/*.csv"
+
+    - name: Combine CSV files
+      set_fact:
+        combined_csv: "{{ combined_csv | default([]) + csv_contents }}"
+
+    - name: Write combined CSV file
+      copy:
+        content: "{{ combined_csv | join('\n') }}"
+        dest: "{{ dest_file }}"
