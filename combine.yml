@@ -10,21 +10,21 @@
         recurse: yes
       register: csv_files
 
-    - name: Merge CSV files
-      lineinfile:
-        dest: /tmp/test/final.csv
-        insertafter: EOF
-        line: "{{ lookup('file', item.path) }}"
-        create: true
-      delegate_to: ansible-lab
-      loop: "{{ csv_files.files }}"
-      
-
-
 #    - name: Merge CSV files
 #      lineinfile:
 #        dest: /tmp/test/final.csv
 #        insertafter: EOF
-#        line: "{{ item }}"
+#        line: "{{ lookup('file', item.path) }}"
 #        create: true
-#      loop: "{{ csv_files.files | map('extract', 'path') | map('file') | list }}"
+#      delegate_to: ansible-lab
+#      loop: "{{ csv_files.files }}"
+      
+
+
+    - name: Merge CSV files
+      lineinfile:
+        dest: /tmp/test/final.csv
+        insertafter: EOF
+        line: "{{ item }}"
+        create: true
+      loop: "{{ csv_files.files | map('extract', 'path') | map('file') | list }}"
