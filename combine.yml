@@ -16,8 +16,9 @@
         insertafter: EOF
         line: "{{ lookup('file', item.path) }}"
         create: true
-      loop: "{{ csv_files.files }}"
       delegate_to: ansible-lab
+      loop: "{{ csv_files.files }}"
+      
 
 
 #    - name: Merge CSV files
