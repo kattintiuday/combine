@@ -17,3 +17,13 @@
         line: "{{ lookup('file', item.path) }}"
         create: true
       loop: "{{ csv_files.files }}"
+      delegate_to: ansible-lab
+
+
+#    - name: Merge CSV files
+#      lineinfile:
+#        dest: /tmp/test/final.csv
+#        insertafter: EOF
+#        line: "{{ item }}"
+#        create: true
+#      loop: "{{ csv_files.files | map('extract', 'path') | map('file') | list }}"
