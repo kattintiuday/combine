@@ -6,6 +6,12 @@
       - appserver01
 
   tasks:
+
+    - name: Print available facts for each host
+      debug:
+        var: hostvars[item]
+      loop: "{{ servernames_Unix }}"
+      
     - name: Fetch FQDNs from inventory
       set_fact:
         fqdn_list: "{{ fqdn_list | default([]) + [hostvars[item]['ansible_fqdn']] }}"
