@@ -4,6 +4,7 @@
   vars:
     servernames_Unix:
       - appserver01
+      - appserver02
 
   tasks:
     - name: Fetch FQDNs from inventory
