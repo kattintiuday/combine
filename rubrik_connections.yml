@@ -13,6 +13,7 @@
       - name: To print
         debug:
           msg: "Access Token URI : {{ URI }} CLientID: {{ client_id }} ClientSecert: {{ rb_client_secret }}"
+        no_log: true
 
 #    - name: Merge CSV files
 #      lineinfile:
