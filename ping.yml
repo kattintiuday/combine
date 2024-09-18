@@ -1,7 +1,12 @@
 ---
 - name: Check connectivity to a specific IP address
   hosts: ansible-lab
-  gather_facts: no
+  gather_facts: yes  # Enable fact gathering
   tasks:
+    - name: Display the Ansible connection IP address
+      debug:
+        msg: "Ansible is connecting to {{ inventory_hostname }} at IP address {{ ansible_default_ipv4.address }}"
+
     - name: Ping the specified IP address
-      ping: # Replace with the target IP address
+      ping:
+
