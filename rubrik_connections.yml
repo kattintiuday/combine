@@ -8,6 +8,7 @@
             URI: "{{ lookup('env', 'rb_acces_token_uri') }}"
             client_id: "{{ lookup('env', 'rb_client_id') }}"
             rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
+        no_log: true
 
       - name: To print
         debug:
