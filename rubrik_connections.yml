@@ -11,7 +11,7 @@
 
       - name: To print
         debug:
-          msg: "Access_Token : {{ URI }}"
+          msg: "{{ URI }}"
 
 #    - name: Merge CSV files
 #      lineinfile:
