@@ -1,29 +1,17 @@
----
-- name: Merge CSV files
-  hosts: ansible-lab
-  become: yes
+- name: Fetch FQDNs from inventory
+  hosts: appserver01
+  gather_facts: false
+  vars:
+    servernames_Unix:
+      - appserver01
+      - appserver02
+
   tasks:
-    - name: Find CSV files
-      find:
-        paths: /tmp/test/tmp
-        patterns: "*.csv"
-        recurse: yes
-      register: csv_files
+    - name: Fetch FQDNs from inventory
+      set_fact:
+        fqdn_list: "{{ fqdn_list | default([]) + [hostvars[item]['fqdn']] }}"
+      loop: "{{ servernames_Unix }}"
 
-    - name: Merge CSV files
-      lineinfile:
-        dest: /tmp/test/final.csv
-        insertafter: EOF
-        line: "{{ lookup('file', item.path) }}"
-        create: true
-      loop: "{{ csv_files.files }}"
-      
-
-
-#    - name: Merge CSV files
-#      lineinfile:
-#        dest: /tmp/test/final.csv
-#        insertafter: EOF
-#        line: "{{ item }}"
-#        create: true
-#      loop: "{{ csv_files.files | map('extract', 'path') | map('file') | list }}"
+    - name: Display the result
+      debug:
+        var: fqdn_list
