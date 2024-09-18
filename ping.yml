@@ -4,5 +4,4 @@
   gather_facts: no
   tasks:
     - name: Ping the specified IP address
-      ping:
-        dest: "172.20.16.1"  # Replace with the target IP address
+      cmd: "ping 172.20.16.1"  # Replace with the target IP address
