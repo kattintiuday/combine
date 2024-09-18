@@ -1,0 +1,22 @@
+---
+- name: Merge CSV files
+  hosts: ansible-lab
+  become: yes
+  tasks:
+      - name: To fetch the credential and get the data
+        set_fact:
+            URI: "{{ lookup('env', 'rb_acces_token_uri') }}"
+            client_id: "{{ lookup('env', 'rb_client_id') }}"
+            rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
+
+      - name: To print
+        debug:
+          msg: "Access_Token : {{ URI }}"
+
+#    - name: Merge CSV files
+#      lineinfile:
+#        dest: /tmp/test/final.csv
+#        insertafter: EOF
+#        line: "{{ item }}"
+#        create: true
+#      loop: "{{ csv_files.files | map('extract', 'path') | map('file') | list }}"
