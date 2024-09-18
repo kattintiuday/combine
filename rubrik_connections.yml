@@ -5,6 +5,7 @@
   tasks:
       - name: To fetch the credential and get the data
         set_fact:
+            account_name: "{{ lookup('env', 'rb_service_account_name') }}"
             URI: "{{ lookup('env', 'rb_acces_token_uri') }}"
             client_id: "{{ lookup('env', 'rb_client_id') }}"
             rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
@@ -12,8 +13,8 @@
 
       - name: To print
         debug:
-          msg: "Access Token URI : {{ URI }} CLientID: {{ client_id }} ClientSecert: {{ rb_client_secret }}"
-        
+          msg: "Accountname: {{ rb_service_account_name  }}  Access Token URI : {{ URI }} CLientID: {{ client_id }} ClientSecert: {{ rb_client_secret }}"
+
 
 #    - name: Merge CSV files
 #      lineinfile:
