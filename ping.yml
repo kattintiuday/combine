@@ -1,7 +1,7 @@
 ---
 - name: Check connectivity to a specific IP address
-  hosts: localhost
+  hosts: ansible-lab
   gather_facts: no
   tasks:
     - name: Ping the specified IP address
-      shell: ping 172.20.16.1 # Replace with the target IP address
+      ping: # Replace with the target IP address
