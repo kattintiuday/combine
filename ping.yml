@@ -1,0 +1,8 @@
+---
+- name: Check connectivity to a specific IP address
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Ping the specified IP address
+      ping:
+        dest: "172.20.16.1"  # Replace with the target IP address
