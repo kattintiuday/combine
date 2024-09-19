@@ -1,6 +1,7 @@
 ---
 - name: Execute PowerShell Script
   hosts: ansible-lab  # Change this to your target host
+  become: true
   tasks:
     - name: Execute PowerShell script with parameters
       shell: |
