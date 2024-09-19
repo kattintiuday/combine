@@ -5,6 +5,6 @@
   tasks:
     - name: Execute PowerShell script with parameters
       shell: |
-        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "client|a5724bec-b375-4f78-88a5-20c81bf260bd" -client_secret "pYCSC3uwlqb5h25bARrfFQO4ooS3a_2n6iZFaElv0gVPT8XL7fqQSKEyIW41PkLa" -access_token_uri "https://kyndrylinc.my.rubrik.com/api/client_token"
+        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ lookup('env', 'rb_client_id') }}" -client_secret"{{ lookup('env', 'rb_client_secret') }}" -access_token_uri "{{ lookup('env', 'rb_acces_token_uri') }}"
       args:
         chdir: /home/admin1/Desktop/GraphQL
