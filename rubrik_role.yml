@@ -7,3 +7,9 @@
         pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_secret "pYCSC3uwlqb5h25bARrfFQO4ooS3a_2n6iZFaElv0gVPT8XL7fqQSKEyIW41PkLa" -access_token_uri "https://kyndrylinc.my.rubrik.com/api/client_token"
       args:
         chdir: /home/admin1/Desktop/GraphQL
+      register: data
+
+    - name: TO display data
+      debug:
+        msg: "{{ data }}"
+
