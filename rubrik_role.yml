@@ -1,9 +1,17 @@
 ---
 - name: Execute PowerShell Script
-  hosts: ansible-lab  # Change this if you want to run on a different host
+  hosts: ansible-lab  # Change this to your target host
   tasks:
     - name: Execute PowerShell script with parameters
       shell: |
-        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_secret "pYCSC3uwlqb5h25bARrfFQO4ooS3a_2n6iZFaElv0gVPT8XL7fqQSKEyIW41PkLa" -access_token_uri "https://kyndrylinc.my.rubrik.com/api/client_token"
-      args:
-        /home/admin1/Desktop/GraphQL
+        pwsh /home/admin1/Desktop/GraphQL/rubrik_sdk_graphql_events_specific_param.ps1 -client_secret "pYCSC3uwlqb5h25bARrfFQO4ooS3a_2n6iZFaElv0gVPT8XL7fqQSKEyIW41PkLa" -access_token_uri "https://kyndrylinc.my.rubrik.com/api/client_token"
+      register: script_result
+
+    - name: Display script output
+      debug:
+        var: script_result.stdout
+
+    - name: Display script error (if any)
+      debug:
+        var: script_result.stderr
+      when: script_result.stderr is not none
