@@ -3,8 +3,15 @@
   hosts: ansible-lab  # Change this to your target host
   become: true
   tasks:
+    - name: Set Fact the Credentials and Tokens
+      set_fact:
+            account_name: "{{ lookup('env', 'rb_service_account_name') }}"
+            URI: "{{ lookup('env', 'rb_acces_token_uri') }}"
+            client_id: "{{ lookup('env', 'rb_client_id') }}"
+            rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
+
     - name: Execute PowerShell script with parameters
       shell: |
-        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ lookup('env', 'rb_client_id') }}" -client_secret"{{ lookup('env', 'rb_client_secret') }}" -access_token_uri "{{ lookup('env', 'rb_acces_token_uri') }}"
+        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}"
       args:
         chdir: /home/admin1/Desktop/GraphQL
