@@ -14,7 +14,12 @@
 
     - name: Copy PowerShell script from playbook repository
       copy:
-        src: rubrik_sdk_graphql_events_specific_param.ps1
+        src: 'files/rubrik_sdk_graphql_events_specific_param.ps1'
+        dest: /home/admin1/Desktop/GraphQL/
+
+    - name: Copy PowerShell script from playbook repository
+      copy:
+        src: 'files/Getevents.gql'
         dest: /home/admin1/Desktop/GraphQL/
 
     - name: Execute PowerShell script with parameters

@@ -1,0 +1,63 @@
+query EventSeriesListQuery($after: String, $filters: ActivitySeriesFilter, $first: Int, $sortBy: ActivitySeriesSortField, $sortOrder: SortOrder) {
+  activitySeriesConnection(after: $after, first: $first, filters: $filters, sortBy: $sortBy, sortOrder: $sortOrder) {
+    edges {
+      cursor
+      node {
+        ...EventSeriesFragment
+        cluster {
+          id
+          name
+          status
+          timezone
+          __typename
+        }
+        activityConnection {
+          nodes {
+            id
+            message
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment EventSeriesFragment on ActivitySeries {
+  id
+  fid
+  startTime
+  activitySeriesId
+  lastUpdated
+  lastActivityType
+  lastActivityStatus
+  objectId
+  objectName
+  objectType
+  severity
+  progress
+  isCancelable
+  isPolarisEventSeries
+  location
+  effectiveThroughput
+  dataTransferred
+  logicalSize
+  organizations {
+    id
+    name
+    __typename
+  }
+  clusterUuid
+  clusterName
+  __typename
+}
