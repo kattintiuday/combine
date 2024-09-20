@@ -48,13 +48,3 @@
       args:
         chdir: /home/admin1/Desktop/GraphQL
       no_log: true
-
-    - name: Remove Directory
-      file:
-        path: /home/admin1/Desktop/GraphQL
-        state: absent
-
-    - name: Remove Directory
-      file:
-        path: /home/admin1/Desktop/GraphQL/queries
-        state: absent
