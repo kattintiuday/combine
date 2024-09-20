@@ -12,12 +12,12 @@
         rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
       no_log: true
 
-    - name: Create directory
+    - name: Remove Directory
       file:
         path: /home/admin1/Desktop/GraphQL
         state: absent
 
-    - name: Create directory
+    - name: Remove Directory
       file:
         path: /home/admin1/Desktop/GraphQL/queries
         state: absent
