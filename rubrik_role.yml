@@ -15,7 +15,7 @@
     - name: Copy PowerShell script from playbook repository
       copy:
         src: rubrik_sdk_graphql_events_specific_param.ps1
-        dest: /home/admin1/Desktop/GraphQL/rubrik_sdk_graphql_events_specific_param_ansible.ps1
+        dest: /home/admin1/Desktop/GraphQL/
       no_log: true
 
 #    - name: Execute PowerShell script with parameters
