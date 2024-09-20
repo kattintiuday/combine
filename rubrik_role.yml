@@ -17,4 +17,4 @@
         pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}"
       args:
         chdir: /home/admin1/Desktop/
-        no_log: true
+      no_log: true
