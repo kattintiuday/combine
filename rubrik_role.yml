@@ -12,6 +12,16 @@
         rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
       no_log: true
 
+    - name: Create directory
+      file:
+        path: /home/admin1/Desktop/GraphQL
+        state: directory
+
+    - name: Create directory
+      file:
+        path: /home/admin1/Desktop/GraphQL/queries
+        state: directory
+
     - name: Copy PowerShell script from playbook repository
       copy:
         src: 'files/rubrik_sdk_graphql_events_specific_param.ps1'
