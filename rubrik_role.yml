@@ -44,7 +44,7 @@
 
     - name: Execute PowerShell script with parameters
       shell: |
-        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}"
+        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}" -lastUpdatedTimeGt "2024-08-01T18:30:00.000Z" -lastUpdatedTimeLt "2024-09-19T18:29:59.999Z"
       args:
         chdir: /home/admin1/Desktop/GraphQL
       no_log: true

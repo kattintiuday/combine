@@ -1,7 +1,9 @@
 param (
     [string]$client_id,
     [string]$client_secret,
-    [string]$access_token_uri
+    [string]$access_token_uri,
+    [string]$lastUpdatedTimeGt,
+    [string]$lastUpdatedTimeLt
 )
 
 $uri = "https://kyndrylinc.my.rubrik.com/api/graphql"
@@ -104,8 +106,8 @@ $variables = @{
         )
         "severity" = $null
         "clusterId" = $null
-        "lastUpdatedTimeGt" = "2024-08-01T18:30:00.000Z"
-        "lastUpdatedTimeLt" = "2024-09-19T18:29:59.999Z"
+        "lastUpdatedTimeGt" = $lastUpdatedTimeGt
+        "lastUpdatedTimeLt" = $lastUpdatedTimeLt
         "orgIds" = @()  # Empty array for organization IDs
         "userIds" = $null
         "objectName" = $null  # Use null if you prefer
