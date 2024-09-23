@@ -9,6 +9,9 @@ param (
 
 $uri = "https://kyndrylinc.my.rubrik.com/api/graphql"
 
+# Write the lastActivityType to the file
+$lastActivityType | Out-File -FilePath "/home/admin1/Desktop/GraphQL/lastActivityType.txt" -Encoding utf8
+
 function Invoke-RubrikGQLQuery {
     param (
         [String] $payload,
