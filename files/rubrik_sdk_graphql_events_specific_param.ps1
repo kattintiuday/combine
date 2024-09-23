@@ -64,47 +64,7 @@ $variables = @{
     "filters" = @{
         "objectType" = $null
         "lastActivityStatus" = $null
-        "lastActivityType" = @(
-            "BACKUP",
-            "REPLICATION",
-            "RECOVERY",
-            "OWNERSHIP",
-            "RESOURCE_OPERATIONS",
-            "SCHEDULE_RECOVERY",
-            "STORAGE",
-            "SYNC",
-            "SYSTEM",
-            "TPR",
-            "TENANT_OVERLAP",
-            "TENANT_QUOTA",
-            "TEST_FAILOVER",
-            "THREAT_FEED",
-            "THREAT_HUNT",
-            "THREAT_MONITORING",
-            "USER_INTELLIGENCE",
-            "RANSOMWARE_INVESTIGATION_ANALYSIS",
-            "ARCHIVE",
-            "AUTH_DOMAIN",
-            "CLASSIFICATION",
-            "CONNECTION",
-            "CONVERSION",
-            "DISCOVERY",
-            "DOWNLOAD",
-            "EMBEDDED_EVENT",
-            "ENCRYPTION_MANAGEMENT_OPERATION",
-            "FAILOVER",
-            "HARDWARE",
-            "LOCAL_RECOVERY",
-            "INDEX",
-            "INSTANTIATE",
-            "ISOLATED_RECOVERY",
-            "LEGAL_HOLD",
-            "LOCK_SNAPSHOT",
-            "LOG_BACKUP",
-            "MAINTENANCE",
-            "BULK_RECOVERY",
-            "ANOMALY"
-        )
+        "lastActivityType" = @($lastActivityType)
         "severity" = $null
         "clusterId" = $null
         "lastUpdatedTimeGt" = $lastUpdatedTimeGt
