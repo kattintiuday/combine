@@ -42,9 +42,13 @@
         src: 'files/Getevents.gql'
         dest: /home/admin1/Desktop/GraphQL/queries/
 
+    - name: Set lastActivityType in the desired format
+      set_fact:
+        formatted_last_activity_type: "{{ last_activity_type | join('\",\"') | prepend('\"') | append('\"') }}"
+
     - name: Execute PowerShell script with parameters
       shell: |
-        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}" -lastUpdatedTimeGt "{{ lastUpdatedTimeGt }}" -lastUpdatedTimeLt "{{ lastUpdatedTimeLt }}" -lastActivityType "{{ lastActivityType }}"
+        pwsh rubrik_sdk_graphql_events_specific_param.ps1 -client_id "{{ client_id }}" -client_secret "{{ rb_client_secret }}" -access_token_uri "{{ URI }}" -lastUpdatedTimeGt "{{ lastUpdatedTimeGt }}" -lastUpdatedTimeLt "{{ lastUpdatedTimeLt }}" -lastActivityType "{{ formatted_last_activity_type }}"
       args:
         chdir: /home/admin1/Desktop/GraphQL
       no_log: true
