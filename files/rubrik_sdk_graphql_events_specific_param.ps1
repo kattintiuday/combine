@@ -117,7 +117,10 @@ $variables = @{
     "sortOrder" = $null
   }
 
-$clusterData = Invoke-RubrikGQLQuery -payload $query -variables $variables -pathToData "data.activitySeriesConnection.edges.node"
+
+$const_activityConnections = data.activitySeriesConnection.edges.map(edge => edge.node.activityConnection.nodes);
+
+$clusterData = Invoke-RubrikGQLQuery -payload $query -variables $variables -pathToData "$const_activityConnections"
 #Write-Output $clusterData
 
 
