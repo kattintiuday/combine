@@ -118,7 +118,7 @@ $variables = @{
   }
 
 
-$clusterData = Invoke-RubrikGQLQuery -payload $query -variables $variables -pathToData "data.activitySeriesConnection.edges.node.activityConnection.nodes"
+$clusterData = Invoke-RubrikGQLQuery -payload $query -variables $variables -pathToData "data.activitySeriesConnection.edges.node"
 #Write-Output $clusterData
 
 
