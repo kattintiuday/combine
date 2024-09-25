@@ -121,6 +121,13 @@ $variables = @{
 $clusterData = Invoke-RubrikGQLQuery -payload $query -variables $variables -pathToData "data.activitySeriesConnection.edges.node"
 #Write-Output $clusterData
 
+# Define the path for the raw data output file
+$rawDataFilePath = "/home/admin1/Desktop/GraphQL/raw_cluster_data.json"
+
+# Convert the raw data to JSON format and write it to the file
+$clusterData | ConvertTo-Json -Depth 100 | Out-File -FilePath $rawDataFilePath -Encoding utf8
+
+Write-Output "Raw data written to $rawDataFilePath successfully."
 
 # Write the cluster data to the file
 $clusterData | Out-File -FilePath "/home/admin1/Desktop/GraphQL/backup.txt" -Encoding utf8
