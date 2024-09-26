@@ -129,83 +129,109 @@ $clusterData | ConvertTo-Json -Depth 100 | Out-File -FilePath $rawDataFilePath -
 
 Write-Output "Raw data written to $rawDataFilePath successfully."
 
-# Write the cluster data to the file
-$clusterData | Out-File -FilePath "/home/admin1/Desktop/GraphQL/backup.txt" -Encoding utf8
+# Path to the JSON file
+$jsonFilePath = "C:\Users\UdayKumarKattinti\Desktop\Graphql\raw_cluster_data.json"
 
-# Define the path to the data file
-$dataFilePath = "/home/admin1/Desktop/GraphQL/backup.txt"
+# Load the JSON data from the file
+$jsonData = Get-Content -Path $rawDataFilePath | ConvertFrom-Json
 
-# Read the content of the data file
-$dataContent = Get-Content -Path $dataFilePath -Raw
+# Define a list to store the flattened data
+$flattenedData = @()
 
-# Split the content into individual stanzas based on blank lines
-$entries = $dataContent -split "\r?\n\r?\n"
+# Iterate through the data and flatten the nested structures
+foreach ($entry in $jsonData) {
+    # Extract top-level fields like ID, FID, etc.
+    $id = $entry.ID
+    $fid = $entry.FID
+    $startTime = $entry.StartTime
+    $activitySeriesId = $entry.ActivitySeriesId
+    $lastUpdated = $entry.LastUpdated
+    $lastActivityType = $entry.LastActivityType
+    $lastActivityStatus = $entry.LastActivityStatus
+    $objectId = $entry.objectId
+    $objectName = $entry.ObjectName
+    $objectType = $entry.ObjectType
+    $severity = $entry.Severity
+    $progress = $entry.Progress
+    $isCancelable = $entry.IsCancelable
+    $isPolarisEventSeries = $entry.IsPolarisEventSeries
+    $location = $entry.Location
+    $effectiveThroughput = $entry.EffectiveThroughput
+    $dataTransferred = $entry.DataTransferred
+    $logicalSize = $entry.LogicalSize
+    #$organizations = $entry.Organizations
+    $clusterUuid = $entry.ClusterUuid
+    $clusterName = $entry.ClusterName
 
-# Initialize an array to hold filtered results
-$filteredEntries = @()
+     # Extract organizations details
+     $organizations = $entry.organizations
+     $organizationsID = $organizations.id
+     $organizationsName = $organizations.name
 
-# Iterate over each entry and filter based on lastActivityType
-foreach ($entry in $entries) {
-    if ($entry -match "lastActivityType\s*:\s*") {
-        $filteredEntries += $entry
-    }
-}
+    # Extract cluster-related details
+    $cluster = $entry.cluster
+    $clusterID = $cluster.id
+    $clusterNameDetail = $cluster.name
+    $clusterStatusDetail = $cluster.status
+    $clusterTimezone = $cluster.timezone
+    $clusterTypename = $cluster.__typename
 
-# Output the filtered entries
-$filteredEntries -join "`r`n`r`n" | Out-File -FilePath "/home/admin1/Desktop/GraphQL/filtered_data.txt"
+    # Loop through the activities inside activityConnection if there are multiple nodes
+    $activityNodes = $entry.activityConnection.nodes
+    foreach ($activity in $activityNodes) {
+        # Extract all activity details
+        $activityID = $activity.id
+        $activityMessage = $activity.message
+        $activityStatus = $activity.status
+        $activityTime = $activity.time
+        $activitySeverity = $activity.severity
+        $activityLocation = $activity.location
+        $activityObjectName = $activity.objectName
 
-
-# Define the path to your input and output files
-$inputFilePath = "/home/admin1/Desktop/GraphQL/filtered_data.txt"
-$outputFilePath = "/home/admin1/Desktop/GraphQL/filtered_data.csv"
-
-# Initialize an array to hold the data
-$dataList = @()
-$allKeys = @{}
-
-# Read the content of the text file
-$content = Get-Content $inputFilePath -Raw
-
-# Split the content into individual entries based on double newlines
-$entries = $content -split "\r?\n\r?\n"
-
-foreach ($entry in $entries) {
-    # Create an ordered dictionary to hold key-value pairs for the current entry
-    $dataItem = [ordered]@{}
-
-    # Split the entry into lines
-    $lines = $entry -split "\r?\n"
-
-    foreach ($line in $lines) {
-        # Split the line into key and value based on the first colon
-        if ($line -match '^(.*?):\s*(.*)$') {
-            $key = $matches[1].Trim()
-            $value = $matches[2].Trim()
-            $dataItem[$key] = $value
-
-            # Collect all unique keys
-            if (-not $allKeys.ContainsKey($key)) {
-                $allKeys[$key] = $true
-            }
+        # Add the flattened entry to the list
+        $flattenedData += [PSCustomObject]@{
+            "ID"                = $id
+            "FID"               = $fid
+            "StartTime"         = $startTime
+            "ActivitySeriesId"  = $activitySeriesId
+            "LastUpdated"       = $lastUpdated
+            "LastActivityType"  = $lastActivityType
+            "LastActivityStatus"= $lastActivityStatus
+            "ObjectId"          = $objectId
+            "ObjectName"        = $objectName
+            "ObjectType"        = $objectType
+            "Severity"          = $severity
+            "Progress"          = $progress
+            "IsCancelable"      = $isCancelable
+            "IsPolarisEventSeries"  = $isPolarisEventSeries
+            "Location"          = $location
+            "EffectiveThroughput"   = $effectiveThroughput
+            "DataTransferred"   = $dataTransferred
+            "LogicalSize"       = $logicalSize
+            "OrganizationsID"     = $organizationsID
+            "OrganizationsName" = $organizationsName
+            "ClusterUuid"       = $clusterUuid
+            "ClusterStatus"     = $clusterStatus
+            "ClusterID"         = $clusterID
+            "ClusterNameDetail" = $clusterNameDetail
+            "ClusterStatusDetail"= $clusterStatusDetail
+            "ClusterTimezone"   = $clusterTimezone
+            "ClusterTypename"   = $clusterTypename
+            "ActivityID"        = $activityID
+            "ActivityMessage"   = $activityMessage
+            "ActivityStatus"    = $activityStatus
+            "ActivityTime"      = $activityTime
+            "ActivitySeverity"  = $activitySeverity
+            "ActivityLocation"  = $activityLocation
+            "ActivityObjectName"= $activityObjectName
         }
     }
-
-    # Add the current data item to the list
-    if ($dataItem.Count -gt 0) {
-        $dataList += New-Object PSObject -Property $dataItem
-    }
 }
 
-# Create an empty hashtable for each item to ensure all keys are present
-foreach ($item in $dataList) {
-    foreach ($key in $allKeys.Keys) {
-        if (-not $item.PSObject.Properties[$key]) {
-            $item | Add-Member -MemberType NoteProperty -Name $key -Value $null
-        }
-    }
-}
+# Define the output CSV file path
+$outputCsvPath = "/home/admin1/Desktop/GraphQL/FinalResult.csv"
 
-# Export the collected data to a CSV file
-$dataList | Export-Csv -Path $outputFilePath -NoTypeInformation
+# Export the flattened data to CSV
+$flattenedData | Export-Csv -Path $outputCsvPath -NoTypeInformation
 
-Write-Output "Data exported to $outputFilePath successfully."
+Write-Host "Data exported to CSV successfully!"
