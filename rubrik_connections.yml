@@ -7,7 +7,7 @@
         set_fact:
             account_name: "{{ lookup('env', 'rb_service_account_name') }}"
             URI: "{{ lookup('env', 'rb_acces_token_uri') }}"
-            client_id: "{{ lookup('env', 'rb_client_id') }}"
+            client_id: "{{ lookup('env', 'RSC_ID') }}"
             rb_client_secret: "{{ lookup('env', 'rb_client_secret') }}"
         no_log: true
 
