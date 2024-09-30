@@ -84,5 +84,3 @@ $clusterData | ConvertTo-Json -Depth 100 | Out-File -FilePath $rawDataFilePath -
 
 Write-Output "Raw data written to $rawDataFilePath successfully."
 
-# Path to the JSON file
-$jsonFilePath = "C:\Users\UdayKumarKattinti\Desktop\Graphql\raw_cluster_data.json"
