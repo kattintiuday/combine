@@ -130,7 +130,7 @@ $clusterData | ConvertTo-Json -Depth 100 | Out-File -FilePath $rawDataFilePath -
 Write-Output "Raw data written to $rawDataFilePath successfully."
 
 # Path to the JSON file
-$jsonFilePath = "C:\Users\UdayKumarKattinti\Desktop\Graphql\raw_cluster_data.json"
+#$jsonFilePath = "C:\Users\UdayKumarKattinti\Desktop\Graphql\raw_cluster_data.json"
 
 # Load the JSON data from the file
 $jsonData = Get-Content -Path $rawDataFilePath | ConvertFrom-Json

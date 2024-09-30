@@ -48,3 +48,11 @@
       args:
         chdir: /home/admin1/Desktop/GraphQL
       no_log: true
+
+
+#    - name: Execute PowerShell script with parameters
+#      shell: |
+#        pwsh rubrik_sdk_graphql_ProtectionStatus.ps1 -client_id "{{ client_id }}" -client_secret "{{ rsc_client_secret }}" -access_token_uri "{{ URI }}"
+#      args:
+#        chdir: /home/admin1/Desktop/GraphQL
+#      no_log: true
